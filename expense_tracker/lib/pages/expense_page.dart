@@ -102,7 +102,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
       // start of body of main page where we display all the relevant info
       body: const Column(
         children: [
-          // Add in more data to use for this page
+          // output expenses in a list
         ],
       ),
     );
