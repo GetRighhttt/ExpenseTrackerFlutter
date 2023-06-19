@@ -15,10 +15,25 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
   @override
   void dispose() {
     // must tell flutter to delete this widget when no longer needed with this
-// dispose method
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
+  }
+
+  // method to show the date picker dialog
+  void _openDatePickerDialog() {
+    // initial date
+    final now = DateTime.now();
+
+    // first date
+    final firstDate = DateTime(now.year - 1, now.month, now.day, now.hour);
+
+    showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: firstDate,
+      lastDate: now,
+    );
   }
 
   @override
@@ -37,13 +52,41 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
               label: Text('Title'),
             ),
           ),
-          TextField(
-            controller: _amountController,
-            maxLength: 25,
-            cursorColor: Colors.green,
-            autofocus: true,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(label: Text('Amount')),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _amountController,
+                  maxLength: 25,
+                  cursorColor: Colors.green,
+                  autofocus: true,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    prefix: Text('\$ '),
+                    label: Text('Amount'),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Selected Date'),
+                    IconButton(
+                      onPressed: _openDatePickerDialog,
+                      icon: const Icon(Icons.calendar_month_outlined),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
           ),
           Row(
             children: [
@@ -73,7 +116,7 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
               ),
               TextButton(
                 onPressed: () {
-                  print('object');
+                  Navigator.pop(context);
                 },
                 child: const Text('Cancel'),
               ),
