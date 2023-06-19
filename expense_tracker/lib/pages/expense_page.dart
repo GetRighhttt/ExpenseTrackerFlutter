@@ -1,4 +1,5 @@
 import 'package:expense_tracker/widgets/expenses_list_widget.dart';
+import 'package:expense_tracker/widgets/new_expense_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/model/expense.dart';
 
@@ -43,17 +44,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
-        return const SizedBox(
-          height: 1500.0,
-          width: double.infinity,
-          child: Column(
-            children: [
-              Text('data'),
-            ],
-          ),
-        );
-      },
+      builder: (BuildContext context) => const NewExpenseWidget(),
     );
   }
 
