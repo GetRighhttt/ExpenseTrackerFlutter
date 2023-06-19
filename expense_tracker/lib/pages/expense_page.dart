@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widgets/expenses_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/model/expense.dart';
 
@@ -9,7 +10,9 @@ class ExpenseTrackerPage extends StatefulWidget {
 }
 
 class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
-  // dummy data for list of expenses
+  // dummy data for list of expenses from our Expense model class
+  // this data would usually be coming from a remote source however for now
+  // it is ok to use dummy data that we create ourselves
   final List<Expense> _registeredExpenses = [
     Expense(
       title: 'Drinks',
@@ -37,12 +40,33 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
     ),
   ];
 
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return const SizedBox(
+          height: 1500.0,
+          width: double.infinity,
+          child: Column(
+            children: [
+              Text('data'),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           'Expense Tracker',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -72,26 +96,8 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              showDialog<String>(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Add'),
-                  content: const Text(
-                      'This button will be used to add some data to the screen.'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            }, // show date picker when button is pressed
+            // call open method when button is pressed
+            onPressed: _openAddExpenseOverlay,
             icon: const Icon(
               Icons.add,
             ),
@@ -99,10 +105,15 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
         ], // actions
       ),
       // start of the body of the main page
-      // start of body of main page where we display all the relevant info
-      body: const Column(
+      body: Column(
         children: [
-          // output expenses in a list
+          // allows for nested list to be present and size the list
+          Expanded(
+            child: ExpenseListWidget(
+              // display list of expenses
+              expenses: _registeredExpenses,
+            ),
+          ),
         ],
       ),
     );
