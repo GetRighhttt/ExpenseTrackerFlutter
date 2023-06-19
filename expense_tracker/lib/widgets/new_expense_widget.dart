@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:expense_tracker/model/expense.dart';
 
 class NewExpenseWidget extends StatefulWidget {
   const NewExpenseWidget({super.key});
@@ -12,6 +13,12 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
 
+  // date picker selected state variable and is nullable
+  DateTime? _selectedDate;
+
+  // set state for category dropdown
+  Categories _selectedCategory = Categories.fun;
+
   @override
   void dispose() {
     // must tell flutter to delete this widget when no longer needed with this
@@ -21,19 +28,26 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
   }
 
   // method to show the date picker dialog
-  void _openDatePickerDialog() {
+  // async and await method that allows us to wait for the said value
+  void _openDatePickerDialog() async {
     // initial date
     final now = DateTime.now();
 
     // first date
     final firstDate = DateTime(now.year - 2, now.month, now.day, now.hour);
 
-    showDatePicker(
+    // waits for the result
+    final pickedDate = await showDatePicker(
       context: context,
       initialDate: now,
       firstDate: firstDate,
       lastDate: now,
     );
+
+    // setting state with selected date
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -78,7 +92,11 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Selected Date'),
+                    Text(
+                      _selectedDate == null
+                          ? 'No date selected'
+                          : formatter.format(_selectedDate!),
+                    ),
                     IconButton(
                       onPressed: _openDatePickerDialog,
                       icon: const Icon(Icons.calendar_month_outlined),
@@ -93,29 +111,39 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
           ),
           Row(
             children: [
+              DropdownButton(
+                elevation: 10,
+                value: _selectedCategory,
+                hint: const Text('category'),
+                icon: const Icon(Icons.arrow_drop_down_rounded),
+                items: Categories.values
+                    .map(
+                      (cateogry) => DropdownMenuItem(
+                        value: cateogry,
+                        child: Text(
+                          cateogry.name.toUpperCase(),
+                        ),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  if (value == null) {
+                    return;
+                  }
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+              ),
+              const Spacer(),
               ElevatedButton(
                 style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(5.0),
+                  elevation: MaterialStateProperty.all(2.0),
                 ),
                 onPressed: () {
                   print(_titleController.text);
                 },
-                child: const Text('Save Title'),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(5.0),
-                ),
-                onPressed: () {
-                  print(_amountController.text);
-                },
-                child: const Text('Save Amount'),
-              ),
-              const SizedBox(
-                width: 10,
+                child: const Text('Save Expense'),
               ),
               TextButton(
                 onPressed: () {
