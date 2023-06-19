@@ -26,7 +26,7 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
     final now = DateTime.now();
 
     // first date
-    final firstDate = DateTime(now.year - 1, now.month, now.day, now.hour);
+    final firstDate = DateTime(now.year - 2, now.month, now.day, now.hour);
 
     showDatePicker(
       context: context,
@@ -39,7 +39,10 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: 50,
+        horizontal: 16,
+      ),
       child: Column(
         children: [
           TextField(

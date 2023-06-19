@@ -43,6 +43,8 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      // takes full screen size
+      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) => const NewExpenseWidget(),
     );
