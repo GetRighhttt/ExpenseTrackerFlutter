@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/model/expense.dart';
 
@@ -48,7 +50,40 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
     setState(() {
       _selectedDate = pickedDate;
     });
-  }
+  } // end _openDatePickerDialog
+
+  //submit expenses to validate data selected by user
+  void _submitExpenseData() {
+    // parse string to double
+    final enteredAmount = double.tryParse(_amountController.text);
+
+    // check if amount is null or less than zero
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      // show error message
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Invalid Input!'),
+          icon: const Icon(Icons.error),
+          content:
+              const Text('You have entered some invalid text. Try again...'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+  } // end _submitExpenseData
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +175,7 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all(2.0),
                 ),
-                onPressed: () {
-                  print(_titleController.text);
-                },
+                onPressed: _submitExpenseData,
                 child: const Text('Save Expense'),
               ),
               TextButton(
