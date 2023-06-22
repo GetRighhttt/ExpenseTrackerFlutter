@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widgets/chart_widget.dart';
 import 'package:expense_tracker/widgets/expenses_list_widget.dart';
 import 'package:expense_tracker/widgets/new_expense_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,23 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
   // dummy data for list of expenses from our Expense model class
   // this data would usually be coming from a remote source however for now
   // it is ok to use dummy data that we create ourselves
-  final List<Expense> _registeredExpenses = [];
+  final List<Expense> _registeredExpenses = [
+    Expense(
+        title: 'Football',
+        amount: 10.00,
+        date: DateTime.now(),
+        category: Categories.hobbies),
+    Expense(
+        title: 'Basketball',
+        amount: 50.00,
+        date: DateTime.now(),
+        category: Categories.hobbies),
+    Expense(
+        title: 'Coffee',
+        amount: 4.99,
+        date: DateTime.now(),
+        category: Categories.leisure),
+  ];
 
   // opens modal bottom sheet when the "+" button in clicked
   void _openAddExpenseOverlay() {
@@ -127,6 +144,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
       // start of the body of the main page
       body: Column(
         children: [
+          Chart(expenses: _registeredExpenses),
           // allows for nested list to be present and size the list
           Expanded(
             child: mainContent,

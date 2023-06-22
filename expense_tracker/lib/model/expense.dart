@@ -50,6 +50,7 @@ class ExpenseBucket {
   // alternative named constructor, used to add additoinal constructors to classes
   // used to get all expenses and filter list by category
   // where is used to filter elements in a list
+  // checking to see if the category for the expense list is equal
   ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
       : expenses = allExpenses
             .where((expense) => expense.category == category)
