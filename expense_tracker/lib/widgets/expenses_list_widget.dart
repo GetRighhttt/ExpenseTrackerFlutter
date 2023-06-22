@@ -3,7 +3,10 @@ import 'package:expense_tracker/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseListWidget extends StatelessWidget {
-  const ExpenseListWidget({super.key, required this.expenses});
+  const ExpenseListWidget(
+      {super.key, required this.expenses, required this.onDismissedExpense});
+
+  final void Function(Expense expense) onDismissedExpense;
 
   final List<Expense> expenses;
 
@@ -15,8 +18,13 @@ class ExpenseListWidget extends StatelessWidget {
       itemCount: expenses.length, // get number of items in list
       // builds the list and improves performance using list view for a lot of
       // display one item per expense with ExpenseItemWWidget
-      itemBuilder: (context, index) => ExpenseItemWidget(
-        expenses[index],
+      // also makes item dismissible
+      itemBuilder: (context, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        onDismissed: (direction) {},
+        child: ExpenseItemWidget(
+          expenses[index],
+        ),
       ),
     );
   }

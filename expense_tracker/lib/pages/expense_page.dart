@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expense_tracker/widgets/expenses_list_widget.dart';
 import 'package:expense_tracker/widgets/new_expense_widget.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +47,12 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
   void _addExpense(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.remove(expense);
     });
   }
 
@@ -101,8 +109,8 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
           // allows for nested list to be present and size the list
           Expanded(
             child: ExpenseListWidget(
-              // display list of expenses from expenses_list_widget.dart
-              expenses: _registeredExpenses,
+              // display list of expenses from expenses_list_widget.dart, and remove expenses
+              expenses: _registeredExpenses, onDismissedExpense: _removeExpense,
             ),
           ),
         ],
