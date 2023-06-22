@@ -64,9 +64,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = const Center(
-      child: Text('No Expenses found!'),
-    );
+    Widget mainContent;
 
     if (_registeredExpenses.isNotEmpty) {
       mainContent = ExpenseListWidget(
@@ -79,7 +77,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
         elevation: 10,
         shadowColor: Colors.deepPurple.shade300,
         child: const Center(
-          child: Text('No Expenses found!'),
+          child: Text('No Expenses found...'),
         ),
       );
     }
