@@ -21,7 +21,9 @@ class ExpenseListWidget extends StatelessWidget {
       // also makes item dismissible
       itemBuilder: (context, index) => Dismissible(
         key: ValueKey(expenses[index]),
-        onDismissed: (direction) {},
+        onDismissed: (direction) {
+          onDismissedExpense(expenses[index]);
+        },
         child: ExpenseItemWidget(
           expenses[index],
         ),
