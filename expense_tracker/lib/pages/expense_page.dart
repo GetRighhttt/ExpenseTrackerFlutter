@@ -87,10 +87,6 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
       appBar: AppBar(
         title: const Text(
           'Expense Tracker',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
         ),
         centerTitle: true,
         leading: IconButton(

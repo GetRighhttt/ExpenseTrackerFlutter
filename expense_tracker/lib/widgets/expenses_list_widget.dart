@@ -20,6 +20,13 @@ class ExpenseListWidget extends StatelessWidget {
       // display one item per expense with ExpenseItemWWidget
       // also makes item dismissible
       itemBuilder: (context, index) => Dismissible(
+        background: Container(
+          color: Theme.of(context).colorScheme.error.withOpacity(.80),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
         key: ValueKey(expenses[index]),
         onDismissed: (direction) {
           onDismissedExpense(expenses[index]);
