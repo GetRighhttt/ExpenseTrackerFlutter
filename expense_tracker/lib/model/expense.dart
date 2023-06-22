@@ -42,3 +42,31 @@ class Expense {
     return formatter.format(date);
   }
 }
+
+// necessary to create buckets for the summed up data of the chart
+class ExpenseBucket {
+  const ExpenseBucket({required this.category, required this.expenses});
+
+  // alternative named constructor, used to add additoinal constructors to classes
+  // used to get all expenses and filter list by category
+  // where is used to filter elements in a list
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+      : expenses = allExpenses
+            .where((expense) => expense.category == category)
+            .toList();
+
+  final Categories category;
+  final List<Expense> expenses;
+
+// sums up all the expenses in the application
+  double get totalExpenses {
+    double sum = 0;
+
+    // set sum = sum + expense amount
+    for (final expense in expenses) {
+      sum += expense.amount;
+    }
+
+    return sum;
+  }
+}
