@@ -1,5 +1,5 @@
 import 'package:expense_tracker/model/expense.dart';
-import 'package:expense_tracker/widgets/chart_bar_widget.dart';
+import 'package:expense_tracker/widgets/charts/chart_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class Chart extends StatelessWidget {
@@ -7,6 +7,7 @@ class Chart extends StatelessWidget {
 
   final List<Expense> expenses;
 
+// getter to get list of buckets and pass in the values
   List<ExpenseBucket> get buckets {
     return [
       ExpenseBucket.forCategory(expenses, Categories.food),
