@@ -16,7 +16,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
   // it is ok to use dummy data that we create ourselves
   final List<Expense> _registeredExpenses = [];
 
-// opens modal bottom sheet when the "+" button in clicked
+  // opens modal bottom sheet when the "+" button in clicked
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       // takes full screen size
@@ -28,7 +28,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
     );
   }
 
-// adds a new expense to the listView of expenses
+  // adds a new expense to the listView of expenses
   void _addExpense(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
@@ -42,11 +42,11 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
     setState(() {
       _registeredExpenses.remove(expense);
     });
-// clear snackbar before another one is displayed
+    // clear snackbar before another one is displayed
     ScaffoldMessenger.of(context).clearSnackBars();
 
-// show a snackbar when the expense is deleted and show undo button with its'
-// functionality inserted at the certain position
+    // show a snackbar when the expense is deleted and show undo button with its'
+    // functionality inserted at the certain position
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
@@ -74,11 +74,10 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
         expenses: _registeredExpenses, onDismissedExpense: _removeExpense,
       );
     } else {
-      mainContent = Card(
-        margin: const EdgeInsets.fromLTRB(80, 300, 80, 300),
+      mainContent = const Card(
+        margin: EdgeInsets.fromLTRB(80, 300, 80, 300),
         elevation: 10,
-        shadowColor: Colors.deepPurple.shade300,
-        child: const Center(
+        child: Center(
           child: Text('No Expenses found...'),
         ),
       );

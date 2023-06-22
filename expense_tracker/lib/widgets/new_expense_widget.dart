@@ -108,7 +108,6 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
           TextField(
             controller: _titleController,
             maxLength: 50,
-            cursorColor: Colors.blueGrey,
             autofocus: true,
             keyboardType: TextInputType.name,
             decoration: const InputDecoration(
@@ -121,7 +120,6 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
                 child: TextField(
                   controller: _amountController,
                   maxLength: 25,
-                  cursorColor: Colors.green,
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(

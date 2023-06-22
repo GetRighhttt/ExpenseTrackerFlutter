@@ -11,7 +11,6 @@ class ExpenseItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 10,
-      shadowColor: Colors.deepPurple.shade300,
       margin: const EdgeInsets.all(5.0),
       child: Container(
         alignment: Alignment.topLeft,
