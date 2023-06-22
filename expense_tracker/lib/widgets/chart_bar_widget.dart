@@ -10,6 +10,7 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // variable to see if dark mode if enabled
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Expanded(
