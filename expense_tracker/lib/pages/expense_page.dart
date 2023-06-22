@@ -36,13 +36,54 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
   }
 
   void _removeExpense(Expense expense) {
+    // used to show snackbar of expense and insert into position
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+
     setState(() {
       _registeredExpenses.remove(expense);
     });
+
+// show a snackbar when the expense is deleted and show undo button with its'
+// functionality inserted at the certain position
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Expense deleted.'),
+        action: SnackBarAction(
+          // showing undo button
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text('No Expenses found!'),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpenseListWidget(
+        // display list of expenses from expenses_list_widget.dart, and remove expenses
+        expenses: _registeredExpenses, onDismissedExpense: _removeExpense,
+      );
+    } else {
+      mainContent = Card(
+        margin: const EdgeInsets.fromLTRB(80, 300, 80, 300),
+        elevation: 10,
+        shadowColor: Colors.deepPurple.shade300,
+        child: const Center(
+          child: Text('No Expenses found!'),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -93,10 +134,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
         children: [
           // allows for nested list to be present and size the list
           Expanded(
-            child: ExpenseListWidget(
-              // display list of expenses from expenses_list_widget.dart, and remove expenses
-              expenses: _registeredExpenses, onDismissedExpense: _removeExpense,
-            ),
+            child: mainContent,
           ),
         ],
       ),
