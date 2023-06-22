@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/model/expense.dart';
 
 class NewExpenseWidget extends StatefulWidget {
-  const NewExpenseWidget({super.key});
+  const NewExpenseWidget({super.key, required this.onAddExpense});
+
+// propety that stores a function as a value to add Expense to list
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpenseWidget> createState() => _NewExpenseWidgetState();
@@ -83,6 +86,15 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
       );
       return;
     }
+
+    // add new expense based on entered data
+    widget.onAddExpense(
+      Expense(
+          title: _titleController.text,
+          amount: enteredAmount,
+          date: _selectedDate!,
+          category: _selectedCategory),
+    );
   } // end _submitExpenseData
 
   @override

@@ -41,13 +41,23 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
     ),
   ];
 
+// opens modal bottom sheet when the "+" button in clicked
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       // takes full screen size
       isScrollControlled: true,
       context: context,
-      builder: (BuildContext context) => const NewExpenseWidget(),
+      // pass in add expense to New Expense Widget
+      builder: (BuildContext context) =>
+          NewExpenseWidget(onAddExpense: _addExpense),
     );
+  }
+
+// adds a new expense to the listView of expenses
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
   }
 
   @override
@@ -82,14 +92,14 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
                 ],
               ),
             );
-          }, // open drawer when button is pressed
+          },
           icon: const Icon(
             Icons.menu,
           ),
         ),
         actions: [
           IconButton(
-            // call open method when button is pressed
+            // call method to open modal sheet when button is pressed
             onPressed: _openAddExpenseOverlay,
             icon: const Icon(
               Icons.add,
@@ -103,7 +113,7 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
           // allows for nested list to be present and size the list
           Expanded(
             child: ExpenseListWidget(
-              // display list of expenses
+              // display list of expenses from expenses_list_widget.dart
               expenses: _registeredExpenses,
             ),
           ),

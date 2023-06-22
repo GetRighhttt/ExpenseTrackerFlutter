@@ -14,7 +14,7 @@ class ExpenseListWidget extends StatelessWidget {
     return ListView.builder(
       itemCount: expenses.length, // get number of items in list
       // builds the list and improves performance using list view for a lot of
-      // items
+      // display one item per expense with ExpenseItemWWidget
       itemBuilder: (context, index) => ExpenseItemWidget(
         expenses[index],
       ),

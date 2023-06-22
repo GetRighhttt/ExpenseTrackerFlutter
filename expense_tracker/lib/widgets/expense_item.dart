@@ -1,6 +1,7 @@
 import 'package:expense_tracker/model/expense.dart';
 import 'package:flutter/material.dart';
 
+// creates expense to be displayed in the list
 class ExpenseItemWidget extends StatelessWidget {
   const ExpenseItemWidget(this.expense, {super.key});
 
