@@ -42,6 +42,8 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
     setState(() {
       _registeredExpenses.remove(expense);
     });
+// clear snackbar before another one is displayed
+    ScaffoldMessenger.of(context).clearSnackBars();
 
 // show a snackbar when the expense is deleted and show undo button with its'
 // functionality inserted at the certain position
