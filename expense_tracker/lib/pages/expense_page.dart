@@ -27,18 +27,6 @@ class _ExpenseTrackerPageState extends State<ExpenseTrackerPage> {
       date: DateTime.now(),
       category: Categories.leisure,
     ),
-    Expense(
-      title: 'Plane tickets',
-      amount: 600.00,
-      date: DateTime.now(),
-      category: Categories.travel,
-    ),
-    Expense(
-      title: 'Laptop',
-      amount: 1500.00,
-      date: DateTime.now(),
-      category: Categories.work,
-    ),
   ];
 
 // opens modal bottom sheet when the "+" button in clicked

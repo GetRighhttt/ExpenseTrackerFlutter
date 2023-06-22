@@ -95,6 +95,7 @@ class _NewExpenseWidgetState extends State<NewExpenseWidget> {
           date: _selectedDate!,
           category: _selectedCategory),
     );
+    Navigator.pop(context);
   } // end _submitExpenseData
 
   @override
